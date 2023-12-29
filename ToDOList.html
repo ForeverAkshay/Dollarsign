@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+    <title>Major Project</title>
+    <h1 style="font-family:Times, 'Times New Roman', serif;">Todo List</h1>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.1/font/bootstrap-icons.min.css">
+    <style>
+        .h1{
+            text-align: center;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+   
+    <nav class="navbar navbar-expand-md navbar-light bg-light">
+        <div class="container-fluid">
+            <a href="#" class="navbar-brand">
+                <img src="logo.png" height="50px">
+            </a>
+            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar">
+                <i class="bi bi-list"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbar">
+                <div class="navbar-nav ms-auto"></div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container p-5">
+        <div class="mb-3">
+            <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#addTaskModal">Add task</button>
+            <div class="d-flex justify-content-center">
+                <div class="col-sm-12 col-md-12 col-lg-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <table class="table" id="taskTable">
+                                <thead class="text-center">
+                                    <th>#</th>
+                                    <th>Task Description</th>
+                                    <th>Responsible</th>
+                                    <th>ETA</th>
+                                    <th>Action</th>
+                                </thead>
+                                <tbody class="text-center" id="taskList">
+                                    <!-- Task rows will be added dynamically here -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Task Modal Structure -->
+    <div class="modal fade" id="addTaskModal" tabindex="-1" role="dialog" aria-labelledby="addTaskModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addTaskModalLabel">Add Task</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-1">
+                        <label for="addTaskArea" class="form-label">Task Description</label>
+                        <textarea class="form-control" id="addTaskArea" name="taskdescription" rows="3" placeholder="Add your task"></textarea>
+                    </div>
+                    <div class="mb-1">
+                        <label for="addTaskResponsible" class="form-label">Responsible</label>
+                        <input type="text" class="form-control" id="addResponsiblePerson" name="taskResponsiblePerson" placeholder="Add Name">
+                    </div>
+                    <div class="mb-1">
+                        <label for="addTaskETA" class="form-label">ETA</label>
+                        <input type="time" class="form-control" id="addTaskETA" name="taskETA" placeholder="Add ETA">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="addTask()">Add Task</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        function addTask() {
+            // Get input values
+            var taskDescription = document.getElementById("addTaskArea").value;
+            var responsiblePerson = document.getElementById("addResponsiblePerson").value;
+            var taskETA = document.getElementById("addTaskETA").value;
+
+            // Validate input values
+            if (taskDescription.trim() === "" || responsiblePerson.trim() === "" || taskETA.trim() === "") {
+                alert("Please fill in all fields.");
+                return;
+            }
+
+            // Create a new table row
+            var table = document.getElementById("taskTable");
+            var newRow = table.insertRow(table.rows.length);
+            var cell1 = newRow.insertCell(0);
+            var cell2 = newRow.insertCell(1);
+            var cell3 = newRow.insertCell(2);
+            var cell4 = newRow.insertCell(3);
+            var cell5 = newRow.insertCell(4);
+
+            // Add data to the new row
+            cell1.innerHTML = table.rows.length - 1;
+            cell2.innerHTML = taskDescription;
+            cell3.innerHTML = responsiblePerson;
+            cell4.innerHTML = taskETA;
+            cell5.innerHTML = '<i class="bi bi-check-circle-fill"></i><i class="bi bi-pencil-square"></i>';
+
+            // Clear modal inputs
+            document.getElementById("addTaskArea").value = "";
+            document.getElementById("addResponsiblePerson").value = "";
+            document.getElementById("addTaskETA").value = "";
+
+            // Close the modal
+            $('#addTaskModal').modal('hide');
+        }
+    </script>
+
+
+  
+</body>
+</html>
